@@ -11,10 +11,11 @@ The website provides a single landing page for project selection while preservin
 
 ## Live Project
 
-[Open the Live Website](https://interactive-simulation-project-qc1uengzj-me-coder7s-projects.vercel.app/)
+[Open the Live Website](https://interactive-simulation-project.vercel.app/)
 
-**Hosted Link:**  
-`https://interactive-simulation-project-qc1uengzj-me-coder7s-projects.vercel.app/`
+**Hosted Link:** 
+
+`https://interactive-simulation-project.vercel.app/`
 
 <p align="center">
   <img src="images/landing-page.png" alt="Landing page of the Interactive Simulation Suite" width="950">
