@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simulation Studio Suite</title>
+    <meta
+      name="description"
+      content="Choose between the Theory of Computation workbench and the Smart Payment Card Validator from one polished project selector."
+    />
+    <link rel="stylesheet" href="shared-shell.css" />
+    <link rel="stylesheet" href="landing.css" />
+  </head>
+  <body id="top">
+    <a class="suite-skip-link" href="#main-content">Skip to content</a>
+    <nav class="suite-nav" aria-label="Site navigation">
+      <div class="suite-nav__brand">
+        <span class="suite-nav__meta">Interactive suite</span>
+        <a class="suite-nav__brand-link" href="./" data-suite-link data-suite-target="home">Simulation Studio</a>
+      </div>
+      <div class="suite-nav__links">
+        <a class="suite-nav__link" href="./" data-suite-link data-suite-target="home">Home</a>
+        <a class="suite-nav__link" href="./toc/" data-suite-link data-suite-target="toc">Theory of Computation</a>
+        <a class="suite-nav__link" href="./payment/" data-suite-link data-suite-target="payment">Card Validator</a>
+      </div>
+    </nav>
+
+    <div class="landing-shell">
+      <header class="landing-hero">
+        <div class="hero-copy">
+          <span class="eyebrow">Premium project selector</span>
+          <h1>Choose the simulator that fits your workflow.</h1>
+          <p>
+            Open a formal-language workbench for grammars and machines, or a practical payment-card validator with live prefix playback and Luhn analysis.
+          </p>
+          <div class="hero-actions">
+            <a class="primary-btn project-link" href="./toc/">Open ToC Workbench</a>
+            <a class="secondary-btn project-link" href="./payment/">Open Card Validator</a>
+          </div>
+          <div class="hero-metrics" aria-label="Site overview">
+            <div class="metric-chip">
+              <span class="metric-label">Projects</span>
+              <strong>2</strong>
+            </div>
+            <div class="metric-chip">
+              <span class="metric-label">Routes</span>
+              <strong>/toc/ · /payment/</strong>
+            </div>
+            <div class="metric-chip">
+              <span class="metric-label">Focus</span>
+              <strong>Study · Validation · Simulation</strong>
+            </div>
+          </div>
+        </div>
+
+        <aside class="hero-panel" aria-label="Project overview">
+          <section class="mini-overview mini-overview--toc">
+            <div class="mini-overview__row">
+              <span class="mini-kicker">Project A</span>
+              <span class="mini-route">/toc/</span>
+            </div>
+            <h2>Theory of Computation</h2>
+            <p>Parse grammars, classify them in the Chomsky hierarchy, build machines, and inspect traces step by step.</p>
+            <div class="mini-tags" aria-label="Theory of Computation highlights">
+              <span>Hierarchy analysis</span>
+              <span>Machine simulation</span>
+              <span>Diagram export</span>
+            </div>
+          </section>
+          <section class="mini-overview mini-overview--payment">
+            <div class="mini-overview__row">
+              <span class="mini-kicker">Project B</span>
+              <span class="mini-route">/payment/</span>
+            </div>
+            <h2>Smart Payment Card Validator</h2>
+            <p>Validate card numbers with network detection, Luhn verification, animated card visuals, and DFA-style prefix playback.</p>
+            <div class="mini-tags" aria-label="Card validator highlights">
+              <span>DFA playback</span>
+              <span>Luhn steps</span>
+              <span>Interactive card UI</span>
+            </div>
+          </section>
+        </aside>
+      </header>
+
+      <main id="main-content" class="landing-main" aria-label="Project selection">
+        <section class="section-header" aria-label="Selector heading">
+          <div>
+            <span class="section-kicker">Available simulators</span>
+            <h2>Open either project directly from here.</h2>
+          </div>
+          <p>Each route keeps its own interface and behavior, so you can move between them without sacrificing clarity or stability.</p>
+        </section>
+
+        <section class="card-grid" aria-label="Project cards">
+          <article class="project-card toc-card">
+            <div class="card-topline">Formal languages & automata</div>
+            <div class="card-header-row">
+              <h2>Theory of Computation Workbench</h2>
+              <span class="route-pill">/toc/</span>
+            </div>
+            <p>
+              A study-focused environment for grammar parsing, validation, Chomsky hierarchy classification, machine construction, trace playback, transition tables, and clean diagram exports.
+            </p>
+            <div class="chip-row" aria-label="ToC features">
+              <span class="feature-chip">Grammar validation</span>
+              <span class="feature-chip">NFA · PDA · LBA · TM</span>
+              <span class="feature-chip">Trace + machine view</span>
+            </div>
+            <ul>
+              <li>Use examples, diagnostics, and stepwise simulation to explain machine behavior clearly.</li>
+              <li>Review classifications and machine definitions without leaving the same workflow.</li>
+              <li>Export visuals for reports, demos, and project presentations.</li>
+            </ul>
+            <div class="card-footer-row">
+              <div class="card-footnote">Best for formal-language demos, coursework, and simulation walkthroughs.</div>
+              <a class="primary-btn project-link" href="./toc/">Open Workbench</a>
+            </div>
+          </article>
+
+          <article class="project-card payment-card">
+            <div class="card-topline">Automata in finance</div>
+            <div class="card-header-row">
+              <h2>Smart Payment Card Validator</h2>
+              <span class="route-pill">/payment/</span>
+            </div>
+            <p>
+              A practical validator that combines prefix recognition, network detection, Luhn verification, and animated payment-card feedback in one focused interface.
+            </p>
+            <div class="chip-row" aria-label="Card validator features">
+              <span class="feature-chip">Prefix playback</span>
+              <span class="feature-chip">Network detection</span>
+              <span class="feature-chip">Luhn analysis</span>
+            </div>
+            <ul>
+              <li>Trace digit-by-digit state movement through an educational prefix-recognition DFA.</li>
+              <li>Inspect checksum steps and validation outcomes alongside the animated card surface.</li>
+              <li>Useful for practical ToC demonstrations with direct real-world context.</li>
+            </ul>
+            <div class="card-footer-row">
+              <div class="card-footnote">Best for fintech-oriented demos and interactive input-validation showcases.</div>
+              <a class="primary-btn project-link" href="./payment/">Open Validator</a>
+            </div>
+          </article>
+        </section>
+      </main>
+
+      <footer class="landing-footer">
+        <p>Simulation Studio Suite</p>
+        <a href="#top" class="landing-footer__link">Back to top</a>
+      </footer>
+    </div>
+
+    <div class="page-transition" aria-hidden="true"></div>
+    <script src="shared-shell.js"></script>
+    <script src="landing.js"></script>
+  </body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Payment Card Validator & Visualizer</title>
+  <link rel="stylesheet" href="../shared-shell.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="suite-project-page suite-project-dark">
+  <a class="suite-skip-link" href="#cardNumberInput">Skip to validator</a>
+  <nav class="suite-nav" aria-label="Project navigation">
+    <div class="suite-nav__brand">
+      <span class="suite-nav__meta">Simulation Suite</span>
+      <a class="suite-nav__brand-link" href="../" data-suite-link data-suite-target="home">Simulation Studio</a>
+    </div>
+    <div class="suite-nav__links">
+      <a class="suite-nav__link" href="../" data-suite-link data-suite-target="home">Home</a>
+      <a class="suite-nav__link" href="../toc/" data-suite-link data-suite-target="toc">Theory of Computation</a>
+      <a class="suite-nav__link" href="./" data-suite-link data-suite-target="payment">Card Validator</a>
+    </div>
+  </nav>
+
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Theory of Computation in Banking</p>
+        <h1>Smart Payment Card Validator & Visualizer</h1>
+      </div>
+      <div class="topbar-actions">
+        <div class="status-pill" id="overallStatus">Awaiting input</div>
+        <button id="themeToggle" class="ghost-btn" type="button" aria-label="Toggle dark or light theme">Light Mode</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="panel input-panel">
+        <div class="panel-header">
+          <h2>Card Input</h2>
+          <p>Enter a card number to detect its network, validate it with Luhn, and simulate prefix recognition with an educational DFA.</p>
+        </div>
+
+        <label for="cardNumberInput" class="input-label">Card Number</label>
+        <div class="input-wrap">
+          <input id="cardNumberInput" type="text" inputmode="numeric" autocomplete="cc-number" maxlength="23" placeholder="XXXX XXXX XXXX XXXX" />
+          <button id="clearButton" class="ghost-btn" type="button">Clear</button>
+        </div>
+
+        <div class="summary-grid">
+          <div class="mini-card">
+            <span class="mini-label">Detected Type</span>
+            <strong id="cardTypeOutput">Unknown</strong>
+          </div>
+          <div class="mini-card">
+            <span class="mini-label">Prefix Status</span>
+            <strong id="prefixOutput">Waiting</strong>
+          </div>
+          <div class="mini-card">
+            <span class="mini-label">Length</span>
+            <strong id="lengthOutput">0 digits</strong>
+          </div>
+          <div class="mini-card">
+            <span class="mini-label">Luhn Check</span>
+            <strong id="luhnOutput">Not run</strong>
+          </div>
+        </div>
+
+        <div class="sample-section">
+          <div class="section-title-row">
+            <h3>Sample Cards</h3>
+            <span>Click to auto-fill</span>
+          </div>
+          <div class="sample-list" id="sampleList"></div>
+        </div>
+
+        <div class="legend-box">
+          <h3>What the app demonstrates</h3>
+          <ul>
+            <li><span class="dot dot-accept"></span> Prefix family accepted by DFA</li>
+            <li><span class="dot dot-progress"></span> Prefix still possible / in progress</li>
+            <li><span class="dot dot-reject"></span> Invalid prefix or failed validation</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="center-column">
+        <section class="panel card-panel">
+          <div class="panel-header compact-header">
+            <h2>Animated Digital Card</h2>
+            <button id="flipButton" class="ghost-btn" type="button">Flip Card</button>
+          </div>
+
+          <div class="card-stage" id="cardStage">
+            <div class="payment-card" id="paymentCard">
+              <div class="payment-card-face payment-card-front">
+                <div class="card-top-row">
+                  <div class="chip"></div>
+                  <div class="network-badge" id="cardBadge">CARD</div>
+                </div>
+                <div class="card-number" id="cardNumberVisual">•••• •••• •••• ••••</div>
+                <div class="card-bottom-row">
+                  <div>
+                    <span class="card-caption">Card Holder</span>
+                    <div class="card-holder" id="holderNameVisual">BRUCE WAYNE</div>
+                  </div>
+                  <div>
+                    <span class="card-caption">Expiry</span>
+                    <div class="card-expiry">12/30</div>
+                  </div>
+                </div>
+              </div>
+              <div class="payment-card-face payment-card-back">
+                <div class="magnetic-strip"></div>
+                <div class="signature-row">
+                  <div class="signature-box" id="signatureNameVisual">BRUCE WAYNE</div>
+                  <div class="cvv-box">123</div>
+                </div>
+                <p class="card-back-note">Demo visualization only. No real payment data is stored.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel dfa-panel">
+          <div class="panel-header compact-header">
+            <h2>DFA Prefix Simulator</h2>
+            <span class="subtle-note">Educational abstraction of real prefix recognition</span>
+          </div>
+
+          <div class="dfa-playback-panel">
+            <div class="dfa-entered-number-box">
+              <div class="dfa-inline-row">
+                <span class="dfa-inline-label">Entered card number</span>
+                <span class="dfa-inline-status" id="dfaPlaybackStatus">0 / 0 symbols consumed</span>
+              </div>
+              <div class="dfa-input-track" id="dfaInputTrack">No digits entered yet.</div>
+              <div class="dfa-track-note">The playback feeds the educational DFA one symbol at a time until the prefix is accepted or rejected.</div>
+            </div>
+
+            <div class="dfa-controls" role="group" aria-label="DFA playback controls">
+              <button id="dfaPrevButton" class="ghost-btn" type="button">Prev</button>
+              <button id="dfaPlayButton" class="ghost-btn" type="button">Play</button>
+              <button id="dfaPauseButton" class="ghost-btn" type="button">Pause</button>
+              <button id="dfaNextButton" class="ghost-btn" type="button">Next</button>
+              <button id="dfaResetButton" class="ghost-btn" type="button">Reset</button>
+              <label class="speed-control" for="dfaSpeedInput">
+                <span>Speed</span>
+                <input id="dfaSpeedInput" type="range" min="300" max="1800" step="100" value="900" />
+              </label>
+            </div>
+          </div>
+
+          <div class="dfa-viewport">
+            <svg id="dfaSvg" viewBox="0 0 920 360" role="img" aria-label="DFA graph for payment card prefix detection"></svg>
+          </div>
+          <div class="dfa-note" id="dfaNote">Start state q0. Enter digits to simulate transitions.</div>
+        </section>
+      </section>
+
+      <section class="panel side-panel">
+        <div class="tab-row">
+          <button class="tab-btn active" data-tab="trace" type="button">Trace</button>
+          <button class="tab-btn" data-tab="luhn" type="button">Luhn Steps</button>
+          <button class="tab-btn" data-tab="result" type="button">Result</button>
+        </div>
+
+        <div class="tab-content active" id="traceTab">
+          <div class="panel-header compact-header">
+            <h2>Transition Trace</h2>
+            <span class="subtle-note">Digit-by-digit path</span>
+          </div>
+          <div id="traceList" class="trace-list empty-state-box">No transitions yet.</div>
+        </div>
+
+        <div class="tab-content" id="luhnTab">
+          <div class="panel-header compact-header">
+            <h2>Luhn Visualization</h2>
+            <span class="subtle-note">Checksum steps</span>
+          </div>
+          <div id="luhnSteps" class="luhn-steps empty-state-box">Enter a full card number to see the step-by-step checksum.</div>
+        </div>
+
+        <div class="tab-content" id="resultTab">
+          <div class="panel-header compact-header">
+            <h2>Validation Result</h2>
+            <span class="subtle-note">Network, prefix, length, checksum</span>
+          </div>
+          <div id="resultPanel" class="result-panel empty-state-box">Your final validation summary will appear here.</div>
+        </div>
+      </section>
+    </main>
+
+    <section class="panel learn-panel">
+      <div class="panel-header">
+        <h2>Why this is Theory of Computation in the real world</h2>
+        <p>Banking systems do not only use business rules. They also rely on finite-state thinking, structured input constraints, and deterministic validation steps.</p>
+      </div>
+
+      <div class="learn-grid">
+        <article class="learn-card">
+          <h3>1. DFA</h3>
+          <p>A deterministic finite automaton reads one digit at a time and moves through states based on the current input. In this app, the prefix simulator models how systems can recognize whether a number still looks like Visa, MasterCard, AmEx, or RuPay.</p>
+        </article>
+        <article class="learn-card">
+          <h3>2. Regular Expressions</h3>
+          <p>Regex provides a compact way to express acceptable number patterns such as “starts with 4 and has 16 digits.” Production systems often combine regex-like prefix rules with metadata tables and deterministic string processing.</p>
+        </article>
+        <article class="learn-card">
+          <h3>3. Luhn Algorithm</h3>
+          <p>Luhn is not a language recognizer in the same way as DFA, but it is a deterministic algorithmic filter. It catches many accidental typing mistakes by applying a fixed transformation and checksum test.</p>
+        </article>
+        <article class="learn-card">
+          <h3>4. Input Validation</h3>
+          <p>Only digits are allowed. The interface formats them into human-friendly groups while still preserving the raw string for validation. This is a practical example of lexical filtering and structured parsing.</p>
+        </article>
+        <article class="learn-card wide-card">
+          <h3>5. Real systems use layered validation</h3>
+          <p>In real payment software, validation usually happens in layers: sanitize input → detect network family → verify allowed length → run checksum → continue to issuer/network processing. That layered flow maps naturally to Theory of Computation ideas like finite-state recognition, pattern matching, and deterministic processing pipelines.</p>
+        </article>
+      </div>
+    </section>
+  </div>
+
+  <script src="../shared-shell.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
